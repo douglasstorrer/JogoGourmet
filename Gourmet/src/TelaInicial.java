@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 public class TelaInicial {
   JFrame framePrincipal = new JFrame();
   boolean inseridoNovo  = false;
+  boolean acerto = false;
 
   public static void main(String[] args) {
     new TelaInicial();
@@ -72,19 +73,21 @@ public class TelaInicial {
         if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(framePrincipal, "O prato que você pensou é " + categoriaTemp.getNome() + "?", "Confirm", JOptionPane.YES_NO_OPTION)) {
           categoriaTemp = exploraCategoria (categoriaTemp);
         }
-        if (inseridoNovo) {
+        if (inseridoNovo || acerto) {
           return categoria;
         }
       }
       if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(framePrincipal, "O prato que você pensou é " + categoria.getPrato() + "?", "Confirm", JOptionPane.YES_NO_OPTION)) {
         mensagemAcerto();
+        acerto = true;
       }else {
         return inserirNovaCategoria(categoria);
       }
     }else {
       if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(framePrincipal, "O prato que você pensou é " + categoria.getPrato() + "?", "Confirm", JOptionPane.YES_NO_OPTION)) {
         mensagemAcerto();
-      }else {
+        acerto = true;
+      }else if (!acerto) {
         categoria = inserirNovaCategoria(categoria);
       }
     }
